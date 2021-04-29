@@ -1,0 +1,14 @@
+.note-card {
+    width: 50%;
+    border: 2px solid white;
+    border-radius: 5%;
+    height: 500px;
+    overflow-y: auto;
+    box-shadow: 20px 20px 10px #1f2329;
+    padding: 15px;
+    color: white;
+}
+
+.note-card p {
+    text-align: left;
+}
