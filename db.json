@@ -1,0 +1,29 @@
+{
+    "notes": [
+        {
+            "id": 1,
+            "title": "This is a new note",
+            "text": "This is a new note"
+        },
+        {
+            "id": 2,
+            "title": "Chores",
+            "text": "abcde"
+        },
+        {
+            "id": 3,
+            "title": "To-do List",
+            "text": "1234"
+        },
+        {
+            "id": 4,
+            "title": "Tasks",
+            "text": "I II III IV"
+        },
+        {
+            "id": 5,
+            "title": "Others",
+            "text": "aaaaaaaaaaaa"
+        }
+    ]
+}
