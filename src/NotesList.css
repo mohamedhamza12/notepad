@@ -1,0 +1,67 @@
+.notes-list-container {
+    width: 50%;
+    text-align: right;
+}
+
+.notes-list {
+    border: 2px solid white;
+    margin-top: 10px;
+    height: 500px;
+    overflow-y: auto;
+}
+
+.note-row::before {
+    content: "";
+    background-color: #313640;
+    border-radius: 50%;
+    display: block;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: scale(0);
+    position: absolute;
+    transition: all 0.4s;
+}
+
+.note-row:hover::before {
+    transform: scale(2);
+}
+
+.note-row {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border: 1px solid white;
+    border-top: 0;
+    height: 40px;
+    color: white;
+    text-align: start;
+    cursor: pointer;
+    font-size: large;
+    display: flex;
+    align-items: center;
+}
+
+.icon-button {
+    background: transparent;
+    width: 40px;
+    height: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+.end-button {
+    position: absolute;
+    right: 0;
+}
+
+#delete-note-button {
+    transition: color 0.3s;
+    color: #9e0000;
+}
+
+#delete-note-button:hover {
+    color: #d40000;
+}
