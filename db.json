@@ -3,27 +3,27 @@
         {
             "id": 1,
             "title": "This is a new note",
-            "text": "This is a new note"
+            "body": "This is a new note"
         },
         {
             "id": 2,
             "title": "Chores",
-            "text": "abcde"
+            "body": "abcde"
         },
         {
             "id": 3,
             "title": "To-do List",
-            "text": "1234"
+            "body": "1234"
         },
         {
             "id": 4,
             "title": "Tasks",
-            "text": "I II III IV"
+            "body": "I II III IV"
         },
         {
             "id": 5,
             "title": "Others",
-            "text": "aaaaaaaaaaaa"
+            "body": "aaaaaaaaaaaa"
         }
     ]
 }
