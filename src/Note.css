@@ -3,7 +3,9 @@
     width: 100%;
     height: 100%;
     z-index: 999;
+    background-color: rgba(0, 0, 0, 0.2);
 }
+
 .note-card {
     left: 50%;
     top: 50%;
