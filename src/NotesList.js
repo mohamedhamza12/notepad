@@ -34,6 +34,9 @@ const NotesList = () => {
                             onClick={e => {
                                 console.log();
                                 if (e.target.closest('#delete-note-button') !== null) {
+                                    fetch(`${apiUrl}/notes/${note.id}`, {
+                                        method: 'DELETE'
+                                    }).then(() => setRefreshNotes(true));
                                     console.log('Delete Note Here');
                                 } else {
                                     setOpenedNote({title: note.title, body: note.body});
@@ -56,7 +59,7 @@ const NotesList = () => {
                 </div>
             </div>
             {
-                openedNote ? <Note title={openedNote.title} body={openedNote.body} /> : null
+                openedNote ? <Note title={openedNote.title} body={openedNote.body} setOpenNoteState={setOpenedNote} /> : null
             }
         </>
     );
