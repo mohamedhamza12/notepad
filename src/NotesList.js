@@ -37,7 +37,6 @@ const NotesList = () => {
                                     fetch(`${apiUrl}/notes/${note.id}`, {
                                         method: 'DELETE'
                                     }).then(() => setRefreshNotes(true));
-                                    console.log('Delete Note Here');
                                 } else {
                                     setOpenedNote({title: note.title, body: note.body});
                                 }
