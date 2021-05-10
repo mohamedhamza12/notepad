@@ -21,6 +21,13 @@ const NotesList = () => {
 
     }, [refreshNotes]);
 
+    const updateAndClose = (data) => {
+        if (data)
+            setRefreshNotes(true);
+
+        setOpenedNote(null);
+    }
+
     return (
         <>
             <div className="notes-list-container">
@@ -31,16 +38,16 @@ const NotesList = () => {
                     {
                         notes.map((note, i) =>
                             <div className="note-row" key={i}
-                            onClick={e => {
-                                console.log();
-                                if (e.target.closest('#delete-note-button') !== null) {
-                                    fetch(`${apiUrl}/notes/${note.id}`, {
-                                        method: 'DELETE'
-                                    }).then(() => setRefreshNotes(true));
-                                } else {
-                                    setOpenedNote({title: note.title, body: note.body});
-                                }
-                            }}>
+                                onClick={e => {
+                                    console.log();
+                                    if (e.target.closest('#delete-note-button') !== null) {
+                                        fetch(`${apiUrl}/notes/${note.id}`, {
+                                            method: 'DELETE'
+                                        }).then(() => setRefreshNotes(true));
+                                    } else {
+                                        setOpenedNote(note);
+                                    }
+                                }}>
                                 <input id={`selected-note-${i}`} type="checkbox" checked={selectedNotes.has(i)} onChange={e => {
                                     const setCopy = new Set(selectedNotes);
                                     if (setCopy.has(i))
@@ -58,7 +65,7 @@ const NotesList = () => {
                 </div>
             </div>
             {
-                openedNote ? <Note title={openedNote.title} body={openedNote.body} setOpenNoteState={setOpenedNote} /> : null
+                openedNote ? <Note noteData={openedNote} updateAndClose={updateAndClose} /> : null
             }
         </>
     );
