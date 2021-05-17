@@ -1,4 +1,4 @@
-import { faCircleNotch, faSyncAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCircleNotch, faPlus, faSyncAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import './NotesList.css';
@@ -23,37 +23,49 @@ const NotesList = () => {
     }, [refreshNotes]);
 
     const updateAndClose = (data) => {
+        setOpenedNote(null);
         if (data)
             setRefreshNotes(true);
-
-        setOpenedNote(null);
     }
 
     return (
         <>
             <div className="notes-list-container">
-                {selectedNotes.size ?
-                    <button className="notepad-button danger-button"
-                        onClick={() => {
-                            setLoading(true);
-                            let fetches = [];
-                            for (const id of selectedNotes) {
-                                fetches.push(
-                                    fetch(`${apiUrl}/notes/${id}`, {
-                                        method: 'DELETE'
-                                    })
-                                );
-                            }
-                            Promise.all(fetches).then(() => {
-                                setRefreshNotes(true);
-                                setSelectedNotes(new Set());
-                                setLoading(false);
-                            })
-                        }}>Delete Selected</button> :
-                    null}
-                <button className="icon-button" onClick={() => setRefreshNotes(true)}>
-                    <FontAwesomeIcon icon={faSyncAlt} color="white" spin={refreshNotes} />
-                </button>
+                <button className="float-left notepad-button primary-button" 
+                onClick={() => {
+                    const newNote = {
+                        "title": '',
+                        "body": ''
+                    };
+                    setOpenedNote(newNote);
+                }}>
+                    <FontAwesomeIcon icon={faPlus} /> New Note
+                    </button>
+                <div className="align-right">
+                    {selectedNotes.size ?
+                        <button className="notepad-button danger-button"
+                            onClick={() => {
+                                setLoading(true);
+                                let fetches = [];
+                                for (const id of selectedNotes) {
+                                    fetches.push(
+                                        fetch(`${apiUrl}/notes/${id}`, {
+                                            method: 'DELETE'
+                                        })
+                                    );
+                                }
+                                Promise.all(fetches).then(() => {
+                                    setRefreshNotes(true);
+                                    setSelectedNotes(new Set());
+                                    setLoading(false);
+                                })
+                            }}>Delete Selected</button> :
+                        null}
+                    <button className="icon-button" onClick={() => setRefreshNotes(true)}>
+                        <FontAwesomeIcon icon={faSyncAlt} color="white" spin={refreshNotes} />
+                    </button>
+                </div>
+                <div className="clear"></div>
                 <div className="notes-list">
                     {
                         notes.map((note, i) =>
@@ -78,7 +90,7 @@ const NotesList = () => {
 
                                     setSelectedNotes(selectedNotesCopy);
                                 }} />
-                                <span>{note.title}</span>
+                                <span>{note.title ? note.title : "<Untitled>"}</span>
                                 <button id="delete-note-button" className="icon-button end-button">
                                     <FontAwesomeIcon icon={faTrash} size="lg" />
                                 </button>

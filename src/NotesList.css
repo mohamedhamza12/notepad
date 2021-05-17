@@ -1,6 +1,17 @@
 .notes-list-container {
     width: 50%;
+}
+
+.float-left {
+    float: left;
+}
+
+.align-right {
     text-align: right;
+}
+
+.clear {
+    clear: both;
 }
 
 .notes-list {
