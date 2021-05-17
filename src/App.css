@@ -6,3 +6,33 @@
   align-items: center;
   justify-content: center;
 }
+
+.notepad-button {
+  margin-right: 10px;
+  background-color: white;
+  color: black;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  height: 33px;
+  width: 20%;
+  transition-duration: 0.3s;
+}
+
+.notepad-button.primary-button {
+  background-color: rgb(10, 114, 10);
+  color: #fff;
+}
+
+.notepad-button.primary-button:hover {
+  background-color: rgb(8, 172, 8);
+}
+
+.notepad-button.danger-button {
+  background-color: rgb(95, 10, 10);
+  color: #fff;
+}
+
+.notepad-button.danger-button:hover {
+  background-color: rgb(148, 17, 17);
+}

@@ -15,7 +15,7 @@ const Note = ({ noteData, updateAndClose }) => {
             }}>
             <div className="note-card">
                 <input id="note-title" type="text" value={_title} onChange={e => setTitle(e.target.value)} />
-                <textarea id="note-body" value={_body} onChange={e => setBody(e.target.value)} />
+                <textarea id="note-body" value={_body} onChange={e => {console.log('changed'); setBody(e.target.value)}} />
                 <div className="note-bottom-buttons">
                     <button className="notepad-button primary-button" onClick={() =>
                         fetch(`${apiUrl}/notes/${noteData.id}`, {

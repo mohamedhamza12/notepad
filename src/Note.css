@@ -28,36 +28,6 @@
     justify-content: flex-end;
 }
 
-.note-card .note-bottom-buttons .notepad-button {
-    margin-right: 10px;
-    background-color: white;
-    color: black;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
-    height: 33px;
-    width: 20%;
-    transition-duration: 0.3s;
-}
-
-.note-card .note-bottom-buttons .notepad-button.primary-button {
-    background-color: rgb(10, 114, 10);
-    color: #fff;
-}
-
-.note-card .note-bottom-buttons .notepad-button.primary-button:hover {
-    background-color: rgb(8, 172, 8);
-}
-
-.note-card .note-bottom-buttons .notepad-button.danger-button {
-    background-color: rgb(95, 10, 10);
-    color: #fff;
-}
-
-.note-card .note-bottom-buttons .notepad-button.danger-button:hover {
-    background-color: rgb(148, 17, 17);
-}
-
 #note-title,
 #note-body {
     color: #fff;

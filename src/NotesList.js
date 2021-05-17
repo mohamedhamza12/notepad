@@ -1,4 +1,4 @@
-import { faSync, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCircleNotch, faSyncAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import './NotesList.css';
@@ -10,6 +10,7 @@ const NotesList = () => {
     const [selectedNotes, setSelectedNotes] = useState(new Set());
     const [refreshNotes, setRefreshNotes] = useState(true);
     const [openedNote, setOpenedNote] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (refreshNotes) {
@@ -31,16 +32,36 @@ const NotesList = () => {
     return (
         <>
             <div className="notes-list-container">
+                {selectedNotes.size ?
+                    <button className="notepad-button danger-button"
+                        onClick={() => {
+                            setLoading(true);
+                            let fetches = [];
+                            for (const id of selectedNotes) {
+                                fetches.push(
+                                    fetch(`${apiUrl}/notes/${id}`, {
+                                        method: 'DELETE'
+                                    })
+                                );
+                            }
+                            Promise.all(fetches).then(() => {
+                                setRefreshNotes(true);
+                                setSelectedNotes(new Set());
+                                setLoading(false);
+                            })
+                        }}>Delete Selected</button> :
+                    null}
                 <button className="icon-button" onClick={() => setRefreshNotes(true)}>
-                    <FontAwesomeIcon icon={faSync} color="white" spin={refreshNotes} />
+                    <FontAwesomeIcon icon={faSyncAlt} color="white" spin={refreshNotes} />
                 </button>
                 <div className="notes-list">
                     {
                         notes.map((note, i) =>
                             <div className="note-row" key={i}
                                 onClick={e => {
-                                    console.log();
-                                    if (e.target.closest('#delete-note-button') !== null) {
+                                    if (e.target.closest('[type="checkbox"]'))
+                                        return;
+                                    if (e.target.closest('#delete-note-button')) {
                                         fetch(`${apiUrl}/notes/${note.id}`, {
                                             method: 'DELETE'
                                         }).then(() => setRefreshNotes(true));
@@ -48,13 +69,14 @@ const NotesList = () => {
                                         setOpenedNote(note);
                                     }
                                 }}>
-                                <input id={`selected-note-${i}`} type="checkbox" checked={selectedNotes.has(i)} onChange={e => {
-                                    const setCopy = new Set(selectedNotes);
-                                    if (setCopy.has(i))
-                                        setCopy.delete(i);
+                                <input id={`selected-note-${i}`} type="checkbox" checked={selectedNotes.has(note.id)} onChange={e => {
+                                    const selectedNotesCopy = new Set(selectedNotes);
+                                    if (selectedNotesCopy.has(note.id))
+                                        selectedNotesCopy.delete(note.id);
                                     else
-                                        setCopy.add(i);
-                                    setSelectedNotes(setCopy);
+                                        selectedNotesCopy.add(note.id);
+
+                                    setSelectedNotes(selectedNotesCopy);
                                 }} />
                                 <span>{note.title}</span>
                                 <button id="delete-note-button" className="icon-button end-button">
@@ -66,6 +88,13 @@ const NotesList = () => {
             </div>
             {
                 openedNote ? <Note noteData={openedNote} updateAndClose={updateAndClose} /> : null
+            }
+            {
+                loading ?
+                    <div className="loading-container">
+                        <FontAwesomeIcon icon={faCircleNotch} spin={true} size="3x" color="white" />
+                    </div> :
+                    null
             }
         </>
     );
